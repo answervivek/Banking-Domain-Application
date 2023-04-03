@@ -1,57 +1,41 @@
 import React, { useState } from 'react';
-import logo from './logo.png';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Header() {
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#40423f" }}>
-      <a className="navbar-brand text-light" href="#">
-        <img src={logo} alt="Logo" height="40" className="mr-2" />
-        My Website
-      </a>
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <a className="nav-link text-light" href="#"></a>
-        </li>
-      </ul>
-    </nav>
-  );
-}
+function JobsPage() {
+  const [selectedOption, setSelectedOption] = useState("demo");
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
-
-function SubHeader() {
-  const [activeTab, setActiveTab] = useState(1);
-
-  const handleTabClick = (tabIndex) => {
-    setActiveTab(tabIndex);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // handle form submission logic here
   };
 
   return (
-    <nav className="nav nav-tabs">
-      <a className={`nav-item nav-link ${activeTab === 1 ? 'active' : ''}`} onClick={() => handleTabClick(1)} style={{ fontWeight: "bold", color: "#40423f" }}>Home</a>
-      <a className={`nav-item nav-link ${activeTab === 2 ? 'active' : ''}`} onClick={() => handleTabClick(2)} style={{ fontWeight: "bold", color: "#40423f" }}>Jobs</a>
-      <a className={`nav-item nav-link ${activeTab === 3 ? 'active' : ''}`} onClick={() => handleTabClick(3)} style={{ fontWeight: "bold", color: "#40423f" }}>S3 File Browser</a>
-      <a className={`nav-item nav-link ${activeTab === 4 ? 'active' : ''}`} onClick={() => handleTabClick(4)} style={{ fontWeight: "bold", color: "#40423f" }}>Application</a>
-    </nav>
-  );
-}
-
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <div className="bg-light">
-        <SubHeader />
+    <div>
+      <h2 style={{ textDecoration: "underline" }}>Batch Jobs</h2>
+      <div className="d-flex align-items-center">
+        <form onSubmit={handleSubmit} className="d-flex align-items-center">
+          <select
+            className="form-select me-2"
+            aria-label="Job Type"
+            value={selectedOption}
+            onChange={handleOptionChange}
+            style={{ minWidth: "300px" }}
+          >
+            <option value="demo">Demo</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+          </select>
+          <button type="submit" className="btn btn-primary ms-auto">
+            Submit
+          </button>
+        </form>
       </div>
-      <main>
-        {/* your main content goes here */}
-      </main>
-      <footer>
-        {/* your footer content goes here */}
-      </footer>
+      {/* add other content here */}
     </div>
   );
 }
 
-export default App;
+export default JobsPage;
