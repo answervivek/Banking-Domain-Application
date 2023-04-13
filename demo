@@ -196,3 +196,73 @@ function JobsPage() {
 
 export default JobsPage;
 
++_+_+__+_+_++_+++++++++++++++++++++++++++++++++++++++_+__________________
+
+import React, { useState } from 'react';
+
+function JobsPage() {
+  const [selectedOption, setSelectedOption] = useState("demo");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    // call different API based on selected option
+    let apiUrl = "";
+    switch(selectedOption) {
+      case "demo":
+        apiUrl = "https://example.com/demo-api";
+        break;
+      case "full-time":
+        apiUrl = "https://example.com/full-time-api";
+        break;
+      case "part-time":
+        apiUrl = "https://example.com/part-time-api";
+        break;
+      default:
+        apiUrl = "https://example.com/default-api";
+        break;
+    }
+    
+    // make API call using fetch or axios
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      console.log(data); // log or use the response data as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div>
+      <h2 style={{ textDecoration: "underline" }}>Batch Jobs</h2>
+      <div className="d-flex align-items-center">
+        <form onSubmit={handleSubmit} className="d-flex align-items-center">
+          <select
+            className="form-select me-2"
+            aria-label="Job Type"
+            value={selectedOption}
+            onChange={handleOptionChange}
+            style={{ minWidth: "300px" }}
+          >
+            <option value="demo">Demo</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+          </select>
+          <button type="submit" className="btn btn-primary ms-auto">
+            Submit
+          </button>
+        </form>
+      </div>
+      {/* add other content here */}
+    </div>
+  );
+}
+
+export default JobsPage;
+
+
